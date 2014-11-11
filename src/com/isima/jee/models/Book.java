@@ -70,5 +70,8 @@ public class Book {
 		return "Book [num=" + num + ", title=" + title + ", price=" + price
 				+ ", resume=" + resume + ", author=" + author + "]";
 	}
+	public static void setLastNum(int n) {
+		lastNum = n;
+	}
 	
 }

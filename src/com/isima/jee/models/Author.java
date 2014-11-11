@@ -21,6 +21,9 @@ public class Author {
 	public static int getLastNum(){
 		return lastNum;
 	}
+	public static void setLastNum(int n){
+		lastNum = n;
+	}
 	public Author() {
 		super();
 	}
