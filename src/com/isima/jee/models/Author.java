@@ -7,6 +7,7 @@ import javax.jdo.annotations.Persistent;
 
 @PersistenceCapable
 public class Author {
+	static private int lastNum;
 	@Persistent
 	private int num;
 	@Persistent
@@ -17,6 +18,9 @@ public class Author {
 	private String adress;
 	@Persistent
 	private List<Book> books;
+	public static int getLastNum(){
+		return lastNum;
+	}
 	public Author() {
 		super();
 	}
@@ -28,6 +32,8 @@ public class Author {
 		this.lastName = lastName;
 		this.adress = adress;
 		this.books = books;
+		if(num > lastNum)
+			lastNum = num;
 	}
 	public int getNum() {
 		return num;
