@@ -9,10 +9,9 @@ public class BiblioServlet extends HttpServlet {
 			throws IOException {
 		BiblioService bs = new BiblioService();
 		resp.setContentType("text/plain");
+		bs.deleteBook(1);
 		resp.getWriter().println("Hello");
-		int n = bs.addAuthor("Amine", "Ben hammou", "Aubiere");
-		int bn = bs.addBook(n, "Chi 7aja", 8.9, "qlqchose");
-		resp.getWriter().println("Num = " + n);
-		resp.getWriter().println("Book Num = " + bn);
+//		int bn = bs.addBook(1, "Chi 7aja", 8.9, "qlqchose");
+//		resp.getWriter().println("Book Num = " + bn);
 	}
 }

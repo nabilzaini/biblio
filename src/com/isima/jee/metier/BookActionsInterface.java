@@ -7,7 +7,7 @@ import com.isima.jee.models.Book;
 
 public interface BookActionsInterface {
 	int addBook(int authorId, String title, double price, String resume);
-    boolean editBook(int bookId, int authorId, String title, double price, String resume);
+    boolean editBook(int bookId, String title, double price, String resume);
     boolean deleteBook(int bookId);
     Book getBook(int bookId);
     List<Book> findBook(String filterBy, String value);

@@ -16,18 +16,20 @@ public class Book {
 	@Persistent
 	private String resume;
 	@Persistent
+	private int authorId;
+	@Persistent
 	private Author author;
 	public Book() {
 		super();
 	}
 	public Book(int num, String title, double price, String resume,
-			Author author) {
+			int authorId) {
 		super();
 		this.num = num;
 		this.title = title;
 		this.price = price;
 		this.resume = resume;
-		this.author = author;
+		this.authorId = authorId;
 		if(num > lastNum)
 			lastNum = num;
 	}
@@ -58,20 +60,25 @@ public class Book {
 	public void setResume(String resume) {
 		this.resume = resume;
 	}
-	public Author getAuthor() {
-		return author;
+	public int getAuthorId() {
+		return authorId;
 	}
 	public void setAuthor(Author author) {
 		this.author = author;
+	}
+	public Author getAuthor() {
+		return author;
+	}
+	public void setAuthorId(int authorId) {
+		this.authorId = authorId;
 	}
 	
 	@Override
 	public String toString() {
 		return "Book [num=" + num + ", title=" + title + ", price=" + price
-				+ ", resume=" + resume + ", author=" + author + "]";
+				+ ", resume=" + resume + ", authorId = " + authorId + "]";
 	}
 	public static void setLastNum(int n) {
 		lastNum = n;
 	}
-	
 }

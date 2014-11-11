@@ -20,7 +20,10 @@ public class AuthorActions implements AuthorActionsInterface {
 		q.setOrdering("num desc");
 		q.setRange(0, 1);
 		List<Author> list = (List<Author>) q.execute();
-		Author.setLastNum(list.get(0).getNum());
+		if(list.isEmpty())
+			Author.setLastNum(0);
+		else
+			Author.setLastNum(list.get(0).getNum());
 	}
 	
 	/**
