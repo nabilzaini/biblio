@@ -58,28 +58,28 @@ public class BookActions implements BookActionsInterface {
 	}
 
 	public Book getBook(int bookId) {
-		javax.jdo.Query query = pm.newQuery(Book.class, "num == " + bookId  );
+		javax.jdo.Query query = pm.newQuery(Book.class, "num == bookId");
 		query.declareParameters("int bookId");
-		return (Book) query.execute();
+		return (Book) query.execute(bookId);
 	}
 
 	public List<Book> findBook(String filterBy, String value) {
 		javax.jdo.Query query = pm.newQuery(Book.class);
 		switch (filterBy) {
 		case "title":
-			query.setFilter("title == " + value);
+			query.setFilter("title ==  value");
 			break;
 		case "price":
-			query.setFilter("price == " + value);
+			query.setFilter("price == value");
 			break;
 		case "resume":
-			query.setFilter("resume == " + value);
+			query.setFilter("resume == value");
 			break;
 		default:
 			break;
 		}
 		query.declareParameters("String value");
-		return (List<Book>)query.execute();
+		return (List<Book>)query.execute(value);
 	}
 
 	public List<Book> allBooks() {
