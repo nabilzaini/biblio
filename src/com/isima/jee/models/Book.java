@@ -6,7 +6,9 @@ import javax.jdo.annotations.Persistent;
 @PersistenceCapable
 public class Book {
 	@Persistent
-	private int num;
+	private  int num;
+	@Persistent
+	private static int lastNum;
 	@Persistent
 	private String title;
 	@Persistent
@@ -26,6 +28,11 @@ public class Book {
 		this.price = price;
 		this.resume = resume;
 		this.author = author;
+		if(num > lastNum)
+			lastNum = num;
+	}
+	public static int getLastNum() {
+		return lastNum;
 	}
 	public int getNum() {
 		return num;
@@ -57,6 +64,7 @@ public class Book {
 	public void setAuthor(Author author) {
 		this.author = author;
 	}
+	
 	@Override
 	public String toString() {
 		return "Book [num=" + num + ", title=" + title + ", price=" + price
