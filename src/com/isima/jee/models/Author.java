@@ -1,13 +1,22 @@
 package com.isima.jee.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.jdo.annotations.Element;
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 
-@PersistenceCapable
+import com.google.appengine.api.datastore.Key;
+
+@PersistenceCapable(detachable = "true")
 public class Author {
 	static private int lastNum;
+	@PrimaryKey
+    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+    private Key id;
 	@Persistent
 	private int num;
 	@Persistent
@@ -17,7 +26,8 @@ public class Author {
 	@Persistent
 	private String adress;
 	@Persistent(mappedBy = "author")
-	private List<Book> books;
+	@Element(dependent = "true")
+	private List<Book> books = new ArrayList<Book>();
 	public static int getLastNum(){
 		return lastNum;
 	}

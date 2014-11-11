@@ -1,10 +1,16 @@
 package com.isima.jee.models;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 
-@PersistenceCapable
+import com.google.appengine.api.datastore.Key;
+@PersistenceCapable(detachable = "true")
 public class Book {
+	@PrimaryKey
+    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+    private Key id;
 	@Persistent
 	private  int num;
 	@Persistent

@@ -41,7 +41,7 @@ public class BookActions implements BookActionsInterface {
 			return 0;
 		if(author.getBooks() == null)
 			author.setBooks(new ArrayList<Book>());
-		author.getBooks().add(book);			
+		author.getBooks().add(book);
 		return book.getNum();
 	}
 
@@ -59,13 +59,15 @@ public class BookActions implements BookActionsInterface {
 	}
 	public boolean deleteBook(int bookId) {
 		Book b = getBook(bookId);
-		Author a = auteurAction.getAuthor(b.getAuthorId());
-		List<Book> list = new ArrayList<Book>();
-		for(Book bb : a.getBooks()){
-			if(bb.getNum() != bookId)
-				list.add(bb);
-		}
-		a.setBooks(list);
+//		Author a = auteurAction.getAuthor(b.getAuthorId());
+//		List<Book> list = new ArrayList<Book>();
+//		for(Book bb : a.getBooks()){
+//			if(bb.getNum() != bookId)
+//				list.add(bb);
+//		}
+//		a.setBooks(list);
+		System.out.println(b);
+		pm.deletePersistent(b);
 		return true;
 	}
 
@@ -73,7 +75,9 @@ public class BookActions implements BookActionsInterface {
 		Query query = pm.newQuery(Book.class, "num == bookId");
 		query.declareParameters("int bookId");
 		List<Book> books = (List<Book>)query.execute(bookId);
-		return books.get(0);
+		if(! books.isEmpty())
+			return books.get(0);
+		return null;
 	}
 
 	public List<Book> findBook(String filterBy, String value) {
