@@ -15,6 +15,14 @@ import com.isima.jee.persistance.PersistanceFactory;
 public class AuthorActions implements AuthorActionsInterface {
 	private PersistenceManager pm = PersistanceFactory.getPfm().getPersistenceManager();
 	
+	public AuthorActions(){
+		Query q = pm.newQuery(Author.class);
+		q.setOrdering("num desc");
+		q.setRange(0, 1);
+		List<Author> list = (List<Author>) q.execute();
+		Author.setLastNum(list.get(0).getNum());
+	}
+	
 	/**
 	 * Returns the added author num or 0 when having error
 	 */

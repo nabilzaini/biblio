@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
+import javax.jdo.Query;
+
 import com.isima.jee.models.Author;
 import com.isima.jee.models.Book;
 import com.isima.jee.persistance.PersistanceFactory;
@@ -20,6 +22,11 @@ public class BookActions implements BookActionsInterface {
 	}
 	public BookActions() {
 		auteurAction = new AuthorActions();
+		Query q = pm.newQuery(Book.class);
+		q.setOrdering("num desc");
+		q.setRange(0, 1);
+		List<Book> list = (List<Book>) q.execute();
+		Book.setLastNum(list.get(0).getNum());
 	}
 	public int addBook(int authorId, String title, double price, String resume) {
 		Author author = auteurAction.getAuthor(authorId);
