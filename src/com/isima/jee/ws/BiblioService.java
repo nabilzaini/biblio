@@ -2,97 +2,78 @@ package com.isima.jee.ws;
 
 import java.util.List;
 
+import com.isima.jee.metier.AuthorActions;
 import com.isima.jee.metier.AuthorActionsInterface;
+import com.isima.jee.metier.BookActions;
 import com.isima.jee.metier.BookActionsInterface;
 import com.isima.jee.models.Author;
 import com.isima.jee.models.Book;
 
 public class BiblioService implements AuthorActionsInterface, BookActionsInterface {
-
-	@Override
+	private AuthorActionsInterface authorActions;
+	private BookActionsInterface bookActions;
+	public BiblioService() {
+		authorActions = new AuthorActions();
+		bookActions = new BookActions();
+	}
 	public int addBook(int authorId, String title, double price, String resume) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return bookActions.addBook(authorId, title, price, resume);
 	}
 
-	@Override
 	public boolean editBook(int bookId, int authorId, String title,
 			double price, String resume) {
-		// TODO Auto-generated method stub
-		return false;
+		return bookActions.editBook(bookId, authorId, title, price, resume);
 	}
 
-	@Override
 	public boolean deleteBook(int bookId) {
-		// TODO Auto-generated method stub
-		return false;
+		return bookActions.deleteBook(bookId);
 	}
 
-	@Override
 	public Book getBook(int bookId) {
-		// TODO Auto-generated method stub
-		return null;
+		return bookActions.getBook(bookId);
 	}
 
-	@Override
 	public List<Book> findBook(String filterBy, String value) {
-		// TODO Auto-generated method stub
-		return null;
+		return bookActions.findBook(filterBy, value);
 	}
 
-	@Override
 	public List<Book> allBooks() {
-		// TODO Auto-generated method stub
-		return null;
+		return bookActions.allBooks();
 	}
 
-	@Override
 	public Author getAuthorOfBook(int bookId) {
-		// TODO Auto-generated method stub
-		return null;
+		return bookActions.getAuthorOfBook(bookId);
 	}
 
-	@Override
 	public int addAuthor(String firstName, String lastName, String address) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return authorActions.addAuthor(firstName, lastName, address);
 	}
 
-	@Override
 	public boolean editAuthor(int authorId, String firstName, String lastName,
 			String address) {
-		// TODO Auto-generated method stub
-		return false;
+		return authorActions.editAuthor(authorId, firstName, lastName, address);
 	}
 
-	@Override
 	public boolean deleteAuthor(int authorId) {
-		// TODO Auto-generated method stub
-		return false;
+		return authorActions.deleteAuthor(authorId);
 	}
 
-	@Override
 	public Author getAuthor(int authorId) {
-		// TODO Auto-generated method stub
-		return null;
+		return authorActions.getAuthor(authorId);
 	}
 
-	@Override
 	public List<Author> findAuthor(String filterBy, String value) {
-		// TODO Auto-generated method stub
-		return null;
+		return authorActions.findAuthor(filterBy, value);
 	}
 
-	@Override
 	public List<Author> allAuthors() {
-		// TODO Auto-generated method stub
-		return null;
+		return authorActions.allAuthors();
 	}
 
-	@Override
 	public List<Book> getBooksByAuthor(int authorId) {
-		// TODO Auto-generated method stub
-		return null;
+		return authorActions.getBooksByAuthor(authorId);
 	}
 
 }

@@ -15,7 +15,7 @@ public class Author {
 	private String lastName;
 	@Persistent
 	private String adress;
-	@Persistent
+	@Persistent(mappedBy = "author")
 	private List<Book> books;
 	public Author() {
 		super();

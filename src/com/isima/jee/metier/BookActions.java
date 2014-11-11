@@ -24,6 +24,7 @@ public class BookActions implements BookActionsInterface {
 	public int addBook(int authorId, String title, double price, String resume) {
 		Author author = auteurAction.getAuthor(authorId);
 		Book book = new Book((Book.getLastNum()+1), title, price, resume, author);
+		author.getBooks().add(book);
 		return book.getNum();
 	}
 
