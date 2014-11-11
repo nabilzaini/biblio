@@ -34,7 +34,6 @@ public class BookActions implements BookActionsInterface {
 		if(book != null){
 			Author author = auteurAction.getAuthor(authorId);
 			book.setAuthor(author);
-			book.setNum(Book.getLastNum()+1);
 			book.setPrice(price);
 			book.setResume(resume);
 			book.setTitle(title);
@@ -60,7 +59,8 @@ public class BookActions implements BookActionsInterface {
 	public Book getBook(int bookId) {
 		javax.jdo.Query query = pm.newQuery(Book.class, "num == bookId");
 		query.declareParameters("int bookId");
-		return (Book) query.execute(bookId);
+		List<Book> books = (List<Book>)query.execute(bookId);
+		return books.get(0);
 	}
 
 	public List<Book> findBook(String filterBy, String value) {
