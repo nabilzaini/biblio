@@ -21,9 +21,9 @@ public class BiblioService implements AuthorActionsInterface, BookActionsInterfa
 		return bookActions.addBook(authorId, title, price, resume);
 	}
 
-	public boolean editBook(int bookId, int authorId, String title,
+	public boolean editBook(int bookId, String title,
 			double price, String resume) {
-		return bookActions.editBook(bookId, authorId, title, price, resume);
+		return bookActions.editBook(bookId, title, price, resume);
 	}
 
 	public boolean deleteBook(int bookId) {
