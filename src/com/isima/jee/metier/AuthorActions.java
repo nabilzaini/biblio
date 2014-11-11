@@ -25,6 +25,9 @@ public class AuthorActions implements AuthorActionsInterface {
 		else
 			Author.setLastNum(list.get(0).getNum());
 	}
+	public void open(){
+		
+	}
 	
 	/**
 	 * Returns the added author num or 0 when having error
@@ -43,7 +46,6 @@ public class AuthorActions implements AuthorActionsInterface {
 		} finally {
 		    if (tx.isActive())
 		        tx.rollback();
-		    pm.close();
 		}
 		return num;
 	}
