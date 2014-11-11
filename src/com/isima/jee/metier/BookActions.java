@@ -1,53 +1,100 @@
 package com.isima.jee.metier;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import javax.jdo.Extent;
+import javax.jdo.PersistenceManager;
 import com.isima.jee.models.Author;
 import com.isima.jee.models.Book;
+import com.isima.jee.persistance.PersistanceFactory;
+
 
 public class BookActions implements BookActionsInterface {
-
-	@Override
+	private static PersistenceManager pm;
+	private AuthorActions auteurAction; 
+	
+	static {
+		pm = PersistanceFactory.getPfm().getPersistenceManager();			
+	}
+	public BookActions() {
+		auteurAction = new AuthorActions();
+	}
 	public int addBook(int authorId, String title, double price, String resume) {
-		// TODO Auto-generated method stub
-		return 0;
+		Author author = auteurAction.getAuthor(authorId);
+		Book book = new Book((Book.getLastNum()+1), title, price, resume, author);
+		author.getBooks().add(book);
+		return book.getNum();
 	}
 
-	@Override
 	public boolean editBook(int bookId, int authorId, String title,
 			double price, String resume) {
-		// TODO Auto-generated method stub
-		return false;
+		Book book = getBook(bookId);
+		if(book != null){
+			Author author = auteurAction.getAuthor(authorId);
+			book.setAuthor(author);
+			book.setPrice(price);
+			book.setResume(resume);
+			book.setTitle(title);
+			return true;
+		}else{
+			return false;	
+		}
 	}
-
-	@Override
 	public boolean deleteBook(int bookId) {
-		// TODO Auto-generated method stub
-		return false;
+		Book book =  getBook(bookId);
+		if(book != null){
+			try {
+				pm.deletePersistent(book);
+				return true;	
+			} catch (Exception e) {
+				return false;
+			}
+		}else{
+			return false;
+		}
 	}
 
-	@Override
 	public Book getBook(int bookId) {
-		// TODO Auto-generated method stub
-		return null;
+		javax.jdo.Query query = pm.newQuery(Book.class, "num == bookId");
+		query.declareParameters("int bookId");
+		List<Book> books = (List<Book>)query.execute(bookId);
+		return books.get(0);
 	}
 
-	@Override
 	public List<Book> findBook(String filterBy, String value) {
-		// TODO Auto-generated method stub
-		return null;
+		javax.jdo.Query query = pm.newQuery(Book.class);
+		switch (filterBy) {
+		case "title":
+			query.setFilter("title ==  value");
+			break;
+		case "price":
+			query.setFilter("price == value");
+			break;
+		case "resume":
+			query.setFilter("resume == value");
+			break;
+		default:
+			break;
+		}
+		query.declareParameters("String value");
+		return (List<Book>)query.execute(value);
 	}
 
-	@Override
 	public List<Book> allBooks() {
-		// TODO Auto-generated method stub
-		return null;
+		Extent e = pm.getExtent(Book.class, true);
+		Iterator it = e.iterator();
+		List<Book> books = new ArrayList<Book>();
+		while (it.hasNext()) {
+			Book book = (Book)it.next();
+			books.add(book);
+		}
+		return books;
 	}
-
-	@Override
 	public Author getAuthorOfBook(int bookId) {
-		// TODO Auto-generated method stub
-		return null;
+		Book book = getBook(bookId);
+		return book.getAuthor();
 	}
 
 }
