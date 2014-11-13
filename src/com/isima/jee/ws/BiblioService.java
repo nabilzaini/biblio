@@ -2,13 +2,15 @@ package com.isima.jee.ws;
 
 import java.util.List;
 
+import javax.jws.WebService;
+
 import com.isima.jee.metier.AuthorActions;
 import com.isima.jee.metier.AuthorActionsInterface;
 import com.isima.jee.metier.BookActions;
 import com.isima.jee.metier.BookActionsInterface;
 import com.isima.jee.models.Author;
 import com.isima.jee.models.Book;
-
+@WebService
 public class BiblioService implements AuthorActionsInterface, BookActionsInterface {
 	private AuthorActionsInterface authorActions;
 	private BookActionsInterface bookActions;
