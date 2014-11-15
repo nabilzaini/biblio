@@ -47,21 +47,21 @@ import com.isima.jee.ws.jaxws.GetBooksByAuthorResponse;
 
 
 public class SoapManager {
-	private static final String NAMESPACE_URI = "http://service.web.com/";
-	private static final QName ADD_AUTHOR_QName = new QName(NAMESPACE_URI,"add");
-	private static final QName EDIT_AUTHOR_QName = new QName(NAMESPACE_URI,"add");
-	private static final QName DELETE_AUTHOR_QName = new QName(NAMESPACE_URI,"add");
-	private static final QName GET_AUTHOR_QName = new QName(NAMESPACE_URI,"add");
-	private static final QName FIND_AUTHOR_QName = new QName(NAMESPACE_URI,"add");
-	private static final QName ALL_AUTHORS_QName = new QName(NAMESPACE_URI,"add");
-	private static final QName GET_BOOKS_BY_AUTHOR_QName = new QName(NAMESPACE_URI,"add");
-	private static final QName ADD_BOOK_QName = new QName(NAMESPACE_URI,"add");
-	private static final QName EDIT_BOOK_QName = new QName(NAMESPACE_URI,"add");
-	private static final QName DELETE_BOOK_QName = new QName(NAMESPACE_URI,"add");
-	private static final QName GET_AUTHOR_OF_BOOK_QName = new QName(NAMESPACE_URI,"add");
-	private static final QName GET_BOOK_QName = new QName(NAMESPACE_URI,"add");
-	private static final QName FIND_BOOK_QName = new QName(NAMESPACE_URI,"add");
-	private static final QName ALL_BOOKS_QName = new QName(NAMESPACE_URI,"add");
+	private static final String NAMESPACE_URI = "http://ws.jee.isima.com/";
+	private static final QName ADD_AUTHOR_QName = new QName(NAMESPACE_URI,"addAuthor");
+	private static final QName EDIT_AUTHOR_QName = new QName(NAMESPACE_URI,"editAuthor");
+	private static final QName DELETE_AUTHOR_QName = new QName(NAMESPACE_URI,"deleteAuthor");
+	private static final QName GET_AUTHOR_QName = new QName(NAMESPACE_URI,"getAuthor");
+	private static final QName FIND_AUTHOR_QName = new QName(NAMESPACE_URI,"findAuthor");
+	private static final QName ALL_AUTHORS_QName = new QName(NAMESPACE_URI,"allAuthors");
+	private static final QName GET_BOOKS_BY_AUTHOR_QName = new QName(NAMESPACE_URI,"getBooksByAuthor");
+	private static final QName ADD_BOOK_QName = new QName(NAMESPACE_URI,"addBook");
+	private static final QName EDIT_BOOK_QName = new QName(NAMESPACE_URI,"editBook");
+	private static final QName DELETE_BOOK_QName = new QName(NAMESPACE_URI,"deleteBook");
+	private static final QName GET_AUTHOR_OF_BOOK_QName = new QName(NAMESPACE_URI,"getAuthorOfBook");
+	private static final QName GET_BOOK_QName = new QName(NAMESPACE_URI,"getBook");
+	private static final QName FIND_BOOK_QName = new QName(NAMESPACE_URI,"findBook");
+	private static final QName ALL_BOOKS_QName = new QName(NAMESPACE_URI,"allBooks");
 	
 	private MessageFactory messageFactory;
 	private BiblioService webService;
@@ -172,6 +172,7 @@ public class SoapManager {
 		return finAuthorResponse;
 	}
 	private Object appelerAllAuthors(SOAPElement soapElement) {
+		//allAutors ?
 		AllAuthors allAuthors = JAXB.unmarshal(new DOMSource(soapElement), AllAuthors.class);
 		List<Author> resultat = webService.allAuthors();
 		AllAuthorsResponse allAuthorsResponse = new AllAuthorsResponse();
@@ -231,6 +232,7 @@ public class SoapManager {
 		return findBookResponse;
 	}
 	private Object appelerAllBooks(SOAPElement soapElement) {
+		//allBooks ?
 		AllBooks allBooks = JAXB.unmarshal(new DOMSource(soapElement), AllBooks.class);
 		List<Book> resultat = webService.allBooks();
 		AllBooksResponse allBooksResponse = new AllBooksResponse();
