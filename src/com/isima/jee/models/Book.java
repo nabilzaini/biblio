@@ -4,9 +4,12 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
+import javax.xml.bind.annotation.*;
 
 import com.google.appengine.api.datastore.Key;
 @PersistenceCapable(detachable = "true")
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Book {
 	@PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
@@ -24,6 +27,7 @@ public class Book {
 	@Persistent
 	private int authorId;
 	@Persistent
+	@XmlTransient
 	private Author author;
 	public Book() {
 		super();
