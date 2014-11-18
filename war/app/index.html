@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Biblio</title>
+  <!-- Libraries -->
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <!-- Classes -->
+  <script type="text/javascript" src="js/soap_client.js"></script>
+  <script type="text/javascript" src="js/part.js"></script>
+  <script type="text/javascript" src="js/parameter.js"></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/bootstrap.yeti.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Bibliothèque</a>
+      </div>
+      <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="#p:author_list">Acceuil</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Auteurs <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#p:author_list">Liste des auteurs</a></li>
+              <li><a href="#p:author_add">Ajouter un auteur</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Livres <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#p:book_list">Liste des livres</a></li>
+              <li><a href="#p:book_add">Ajouter un livre</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3" id="sidebar">
+
+        <div class="panel panel-default">
+          <div class="panel-heading">Livres récents</div>
+          <ul class="list-group">
+            <li class="list-group-item"><a href="#">Titre du livre 1</a></li>
+            <li class="list-group-item"><a href="#">Titre du livre 2</a></li>
+            <li class="list-group-item"><a href="#">Titre du livre 3</a></li>
+            <li class="list-group-item"><a href="#">Titre du livre 4</a></li>
+            <li class="list-group-item"><a href="#">Titre du livre 5</a></li>
+          </ul>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">Top Auteurs</div>
+          <ul class="list-group">
+            <li class="list-group-item"><a href="#p:author_details">Auteur Flan weld flan !!</a></li>
+            <li class="list-group-item"><a href="#p:author_details|n:1">Auteur Flan weld flan !!</a></li>
+            <li class="list-group-item"><a href="#p:author_details|n:2">Auteur Flan weld flan !!</a></li>
+            <li class="list-group-item"><a href="#p:author_details|n:3">Auteur Flan weld flan !!</a></li>
+            <li class="list-group-item"><a href="#p:author_details|n:5">Auteur Flan weld flan !!</a></li>
+          </ul>
+        </div>
+
+      </div>
+      <div class="col-md-9" id="content">
+      </div>
+    </div>
+  </div>
+  <!-- Init -->
+  <script type="text/javascript" src="js/init.js"></script>
+  <!-- Handlers -->
+  <script type="text/javascript" src="js/authors.js"></script>
+  <script type="text/javascript" src="js/books.js"></script>
+  
+  <script type="text/javascript">
+    Parameter.update(location.href);
+    var page = Parameter.get('p');
+    if(page != null)
+      Part.go(page);
+    else
+      Part.go('author_list');
+
+  </script>
+</body>
+</html>

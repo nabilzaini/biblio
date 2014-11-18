@@ -172,8 +172,6 @@ public class SoapManager {
 		return finAuthorResponse;
 	}
 	private Object appelerAllAuthors(SOAPElement soapElement) {
-		//allAutors ?
-		AllAuthors allAuthors = JAXB.unmarshal(new DOMSource(soapElement), AllAuthors.class);
 		List<Author> resultat = webService.allAuthors();
 		AllAuthorsResponse allAuthorsResponse = new AllAuthorsResponse();
 		allAuthorsResponse.setReturn(resultat);
@@ -232,8 +230,6 @@ public class SoapManager {
 		return findBookResponse;
 	}
 	private Object appelerAllBooks(SOAPElement soapElement) {
-		//allBooks ?
-		AllBooks allBooks = JAXB.unmarshal(new DOMSource(soapElement), AllBooks.class);
 		List<Book> resultat = webService.allBooks();
 		AllBooksResponse allBooksResponse = new AllBooksResponse();
 		allBooksResponse.setReturn(resultat);

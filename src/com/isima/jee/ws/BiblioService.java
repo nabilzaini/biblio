@@ -10,6 +10,7 @@ import com.isima.jee.metier.BookActions;
 import com.isima.jee.metier.BookActionsInterface;
 import com.isima.jee.models.Author;
 import com.isima.jee.models.Book;
+
 @WebService
 public class BiblioService implements AuthorActionsInterface, BookActionsInterface {
 	private AuthorActionsInterface authorActions;

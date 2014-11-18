@@ -102,10 +102,11 @@ public class AuthorActions implements AuthorActionsInterface {
 
 	@Override
 	public List<Book> getBooksByAuthor(int authorId) {
-		Author a = getAuthor(authorId);
-		if(a == null)
-			return null;
-		return a.getBooks();
+		Query q = pm.newQuery(Book.class);
+		q.setFilter("authorId == numParam");
+		q.declareParameters("int numParam");
+		List<Book> results = (List<Book>) q.execute(authorId);
+		return results;
 	}
 
 }
