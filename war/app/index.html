@@ -6,6 +6,8 @@
   <!-- Libraries -->
   <script type="text/javascript" src="js/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.dataTables.min.js"></script>
+  <script src="js/dataTables.bootstrap.min.js"></script>
   <!-- Classes -->
   <script type="text/javascript" src="js/soap_client.js"></script>
   <script type="text/javascript" src="js/part.js"></script>
@@ -14,6 +16,7 @@
   <!-- Styles -->
   <link rel="stylesheet" href="css/bootstrap.yeti.min.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dataTables.bootstrap.css">
 </head>
 <body>
   <nav class="navbar navbar-default" role="navigation">
@@ -54,7 +57,7 @@
 
         <div class="panel panel-default">
           <div class="panel-heading">Livres récents</div>
-          <ul class="list-group">
+          <ul class="list-group" id="last_books">
             <li class="list-group-item"><a href="#">Titre du livre 1</a></li>
             <li class="list-group-item"><a href="#">Titre du livre 2</a></li>
             <li class="list-group-item"><a href="#">Titre du livre 3</a></li>
@@ -64,8 +67,8 @@
         </div>
 
         <div class="panel panel-default">
-          <div class="panel-heading">Top Auteurs</div>
-          <ul class="list-group">
+          <div class="panel-heading">Auteurs récents </div>
+          <ul class="list-group" id="top_authors">
             <li class="list-group-item"><a href="#p:author_details">Auteur Flan weld flan !!</a></li>
             <li class="list-group-item"><a href="#p:author_details|n:1">Auteur Flan weld flan !!</a></li>
             <li class="list-group-item"><a href="#p:author_details|n:2">Auteur Flan weld flan !!</a></li>
@@ -92,7 +95,7 @@
       Part.go(page);
     else
       Part.go('author_list');
-
   </script>
+  <script type="text/javascript" src="js/sidebar.js"></script>
 </body>
 </html>
