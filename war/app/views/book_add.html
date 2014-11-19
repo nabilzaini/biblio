@@ -1,1 +1,86 @@
-<h1> Ajouter un livre ici </h1>
+<h1> Ajouter un livre </h1>
+<form class="form-horizontal" role="form" id="add_book_form">
+  <div class="form-group">
+    <label for="authorid" class="col-sm-2 control-label">Auteur</label>
+    <div class="col-sm-10">
+      <select class="form-control" id="authors"></select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="title" class="col-sm-2 control-label">Titre</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="title" placeholder="Titre">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="price" class="col-sm-2 control-label">Prix</label>
+    <div class="col-sm-6" >
+    <div class="input-group">
+      <input type="number" step="any" class="form-control" id="price" placeholder="Prix">
+      <div class="input-group-addon">€</div>
+    </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="description" class="col-sm-2 control-label">Description</label>
+    <div class="col-sm-10">
+      <textarea id="description" class="form-control" rows="3" placeholder="Description"></textarea>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-primary"> Ajouter </button>
+    </div>
+  </div>
+</form>
+<script>
+// Remplir la liste des auteurs
+var authors = ws.callMethod('allAuthors',[]);
+var txt = '';
+if($.isArray(authors)){ // plusieurs auteurs
+	auteurs.forEach(function(a){
+		txt = '<option value="' + a.num + '">'+ a.lastname + ' ' + a.firstname + '</option>';
+	});
+} else if(authors) { // un auteur
+	txt = '<option value="' + authors.num + '">'+ authors.lastname + ' ' + authors.firstname + '</option>';
+} else { // aucun auteur
+	$('#authors').hide().after('<p class="bg-danger"> Il faut ajouter au moins un auteur pour pouvoir ajouter un livre  </p>');
+}
+$('#authors').html(txt);
+
+// L'événement du submit du formulaire 
+$('#add_book_form').submit(function(e){
+	// on annule les traitement qui se déclanchent par défaut 
+	e.preventDefault();
+	// Vérification des valeurs des inputs
+	var error = false;
+	var $author = $('#authors');
+	var $title = $('#title');
+	var $price = $('#price');
+	var $description = $('#description');
+	if($title.val() == '') {
+		error = true;
+		$title.parents('.form-group').addClass('has-error');
+	} else
+		$title.parents('.form-group').removeClass('has-error');
+	
+	if($price.val() == '' || parseFloat($price.val()) < 0) {
+		error = true;
+		$price.parents('.form-group').addClass('has-error');
+	} else
+		$price.parents('.form-group').removeClass('has-error');
+	
+	if($description.val() == '') {
+		error = true;
+		$description.parents('.form-group').addClass('has-error');
+	} else
+		$description.parents('.form-group').removeClass('has-error');
+	// Envoi des données au webservice
+	if(! error){
+		var n = ws.callMethod('addBook', [ $author.val(), $title.val(), $price.val(), $description.val() ]);
+	// Redirection vers la page des details du livre ajouté !
+		location.href = location.href.replace('book_add', 'book_details|n:' + n);
+	}	
+});
+</script>
