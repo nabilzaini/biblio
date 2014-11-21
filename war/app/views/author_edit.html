@@ -1,0 +1,77 @@
+<h1> Modifier un Auteur </h1>
+<form class="form-horizontal" role="form" id="edit_author_form">
+  <div class="form-group">
+    <label for="lastname" class="col-sm-2 control-label">Nom</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="lastname" placeholder="Nom">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="firstname" class="col-sm-2 control-label">Prénom</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="firstname" placeholder="Prénom">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="address" class="col-sm-2 control-label">Adresse</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="address" placeholder="Adresse">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-primary"> Modifier </button>
+    </div>
+  </div>
+</form>
+
+<script>
+//Remplir les champs
+var num = Parameter.get('n');
+if(num != null){
+  var author = ws.callMethod('getAuthor', [num]);
+  $('#lastname').val(author.lastname);
+  $('#firstname').val(author.firstname);
+  $('#address').val(author.adress);
+
+    // L'événement du submit du formulaire 
+    $('#edit_author_form').submit(function(e){
+    // on annule les traitement qui se déclanchent par défaut methode et action
+    e.preventDefault();
+
+    // Vérification des valeurs des inputs
+
+    var lastName = $('#lastname').val();
+    var firstName = $('#firstname').val();
+    var address = $('#address').val();
+    if(lastName == ''){
+      $('#lastname').parents('.form-group').addClass("has-error");
+    }else{
+      $('#lastname').parents('.form-group').removeClass("has-error");
+    }
+
+    if(firstName == ''){
+      $('#firstname').parents('.form-group').addClass("has-error");
+    }else{
+      $('#firstname').parents('.form-group').removeClass("has-error");
+    }
+
+    if(address == ''){
+      $('#address').parents('.form-group').addClass("has-error");
+    }else{
+      $('#address').parents('.form-group').removeClass("has-error");
+    }
+
+    if(lastName != '' && firstName != '' && address != ''){
+      // Appellé EditAuthor de webservice
+      num = ws.callMethod('editAuthor', [num, lastName, firstName, address]);
+      // Redirection vers le popup de des details de l'auteur modifié !
+      location.href = location.href.replace('author_edit', 'author_list');    
+    }
+  });  
+}
+else{
+    location.href = location.href.replace('author_edit|n:' + num, 'author_list');    
+}
+
+</script>
