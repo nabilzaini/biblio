@@ -25,16 +25,41 @@
   </div>
 </form>
 <script>
+
 // L'événement du submit du formulaire 
 $('#add_author_form').submit(function(e){
-	// on annule les traitement qui se déclanchent par défaut 
-	e.preventDefault();
+  // on annule les traitement qui se déclanchent par défaut 
+  e.preventDefault();
 
-	// Vérification des valeurs des inputs
-		
-	// Envoi des données au webservice
-	
-	// Redirection vers la page des details de l'auteur ajouté !
-	
+  // Vérification des valeurs des inputs
+
+  var lastName = $('#lastname').val();
+  var firstName = $('#firstname').val();
+  var address = $('#address').val();
+  console.log(lastName + " " + firstName + " " + address);
+  if(lastName == ''){
+    $('#lastname').parents('.form-group').addClass("has-error");
+  }else{
+    $('#lastname').parents('.form-group').removeClass("has-error");
+  }
+
+  if(firstName == ''){
+    $('#firstname').parents('.form-group').addClass("has-error");
+  }else{
+    $('#firstname').parents('.form-group').removeClass("has-error");
+  }
+
+  if(address == ''){
+    $('#address').parents('.form-group').addClass("has-error");
+  }else{
+    $('#address').parents('.form-group').removeClass("has-error");
+  }
+
+  if(lastName != '' && firstName != '' && address != ''){
+    // Envoi des données au webservice
+    var num = ws.callMethod('addAuthor', [lastName, firstName, address]);
+    // Redirection vers la page des details de l'auteur ajouté !
+    location.href = (location.href).replace('author_add', 'author_list|n:' + num);    
+  }
 });
 </script>
