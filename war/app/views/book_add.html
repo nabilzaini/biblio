@@ -39,8 +39,8 @@
 var authors = ws.callMethod('allAuthors',[]);
 var txt = '';
 if($.isArray(authors)){ // plusieurs auteurs
-	auteurs.forEach(function(a){
-		txt = '<option value="' + a.num + '">'+ a.lastname + ' ' + a.firstname + '</option>';
+	authors.forEach(function(a){
+		txt += '<option value="' + a.num + '">'+ a.lastname + ' ' + a.firstname + '</option>';
 	});
 } else if(authors) { // un auteur
 	txt = '<option value="' + authors.num + '">'+ authors.lastname + ' ' + authors.firstname + '</option>';
