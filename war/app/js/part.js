@@ -37,7 +37,7 @@ Part.prototype.define = function(todo) {
 
 Part.prototype.hide = function() {
 	var self = this;
-	this.$parent.slideUp(400);
+	this.$parent.slideUp(400).html('');
 }
 
 Part.go = function(name) {

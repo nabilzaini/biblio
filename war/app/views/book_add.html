@@ -79,8 +79,12 @@ $('#add_book_form').submit(function(e){
 	// Envoi des données au webservice
 	if(! error){
 		var n = ws.callMethod('addBook', [ $author.val(), $title.val(), $price.val(), $description.val() ]);
-	// Redirection vers la page des details du livre ajouté !
-		location.href = location.href.replace('book_add', 'book_details|n:' + n);
+		if(n){
+			// Redirection vers la page des details du livre ajouté !
+			location.href = location.href.replace('book_add', 'book_list|n:' + n);
+		} else {
+			console.log('Erreur happened !');
+		}
 	}	
 });
 </script>

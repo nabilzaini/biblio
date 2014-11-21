@@ -1,1 +1,88 @@
-<h1> Edit </h1>
+<h1> Modifier un livre </h1>
+<form class="form-horizontal" role="form" id="edit_book_form">
+  <div class="form-group">
+    <label for="authorid" class="col-sm-2 control-label">Auteur</label>
+    <div class="col-sm-10">
+      <p class="form-control-static"><a href="#" id="author"></a></p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="title" class="col-sm-2 control-label">Titre</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="title" placeholder="Titre">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="price" class="col-sm-2 control-label">Prix</label>
+    <div class="col-sm-6" >
+    <div class="input-group">
+      <input type="number" step="any" class="form-control" id="price" placeholder="Prix">
+      <div class="input-group-addon">€</div>
+    </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="description" class="col-sm-2 control-label">Description</label>
+    <div class="col-sm-10">
+      <textarea id="description" class="form-control" rows="3" placeholder="Description"></textarea>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-primary"> Enregistrer </button>
+    </div>
+  </div>
+</form>
+<script>
+var bookNum = Parameter.get('n');
+if(bookNum == null)
+	location.href = location.href.replace('book_edit','book_list');
+else {
+	var b = ws.callMethod('getBook', [bookNum]);
+	if(b){
+		var a = ws.callMethod('getAuthor', [b.authorid]);
+		$('#author').html(a.lastname + ' ' + a.firstname).attr('href','index.html#p:author_list|n:' + a.num);
+		$('#title').val(b.title);
+		$('#price').val(b.price);
+		$('#description').val(b.resume);
+	} else {
+		location.href = location.href.replace('book_edit','book_list');
+	}
+}
+
+// L'événement du submit du formulaire 
+$('#edit_book_form').submit(function(e){
+	// on annule les traitement qui se déclanchent par défaut 
+	e.preventDefault();
+	// Vérification des valeurs des inputs
+	var error = false;
+	var $author = $('#authors');
+	var $title = $('#title');
+	var $price = $('#price');
+	var $description = $('#description');
+	if($title.val() == '') {
+		error = true;
+		$title.parents('.form-group').addClass('has-error');
+	} else
+		$title.parents('.form-group').removeClass('has-error');
+	
+	if($price.val() == '' || parseFloat($price.val()) < 0) {
+		error = true;
+		$price.parents('.form-group').addClass('has-error');
+	} else
+		$price.parents('.form-group').removeClass('has-error');
+	
+	if($description.val() == '') {
+		error = true;
+		$description.parents('.form-group').addClass('has-error');
+	} else
+		$description.parents('.form-group').removeClass('has-error');
+	// Envoi des données au webservice
+	if(! error){
+		var n = ws.callMethod('editBook', [ bookNum, $title.val(), $price.val(), $description.val() ]);
+	// Redirection vers la page des details du livre ajouté !
+		location.href = location.href.replace('book_edit', 'book_list|n:' + bookNum);
+	}	
+});
+</script>
